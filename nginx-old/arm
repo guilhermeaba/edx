@@ -1,0 +1,39 @@
+server {
+    listen 18011 ssl;
+	
+    ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+    # request the browser to use SSL for all connections
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+	
+    server_name _;
+    root /edx/var/arm;
+    index index.php index.html index.htm;
+
+    #ssl_certificate /etc/ssl/certs/ca-certificates.crt;
+    #ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args ;
+    }
+
+    location ~ /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~* \.(svg|ttf|otf|eot|woff|woff2)$ {
+       add_header Access-Control-Allow-Origin *;
+    }
+
+    access_log  /var/log/nginx/$host-access.log;
+    error_log   /var/log/nginx/wpms-error.log;
+}

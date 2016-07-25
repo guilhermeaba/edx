@@ -1,0 +1,99 @@
+upstream insights_app_server {
+	server 127.0.0.1:8110 fail_timeout=0;
+}
+
+server {
+  error_page 504 /server/server-error.html;
+  error_page 502 /server/server-error.html;
+  error_page 500 /server/server-error.html;
+  
+  listen 18110;
+  
+  access_log /edx/var/log/nginx/access.log p_combined;
+  error_log /edx/var/log/nginx/error.log error;
+  
+  client_max_body_size 4M;
+  
+  rewrite ^(.*)/favicon.ico$ /static/images/favicon.ico last;
+
+  location ~ ^/static/(?P<file>.*) {
+    root /edx/var/insights;
+    try_files /staticfiles/$file =404;
+  }
+
+  location / {
+    try_files $uri @proxy_to_app;
+  }
+
+  # No basic auth security on the heartbeat url, so that ELB can use it
+  location /status {
+    try_files $uri @proxy_to_app;
+  }
+  
+  location /segmentio/event {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /api {
+    try_files $uri @proxy_to_app;
+  }
+
+  location ~ ^/api/profile_images/[^/]*/[^/]*/upload$ {
+    try_files $uri @proxy_to_app;
+    client_max_body_size 1049576;
+  }
+
+  location /notifier_api {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /user_api {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /github_service_hook {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /oauth2 {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /auth {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /heartbeat {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /lti_provider {
+    try_files $uri @proxy_to_app;
+  }
+
+  location /courses {    try_files $uri @proxy_to_app;
+  }
+
+  location ~ ^/media/(?P<file>.*) {
+    root /edx/var/edxapp/media;
+    try_files /$file =404;
+    expires 31536000s;
+  }
+
+  location ~ ^/server/(?P<file>.*) {
+      root /edx/var/nginx/server-static;
+      try_files /$file =404;
+  }
+
+  #include /edx/app/edx_ansible/edx_ansible/playbooks/roles/nginx/templates/edx/app/nginx/sites-available/robots.j2;
+
+location @proxy_to_app {
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+    proxy_set_header X-Forwarded-Port $http_x_forwarded_port;
+    proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+    proxy_set_header Host $http_host;
+
+    proxy_redirect off;
+    proxy_pass http://insights_app_server;
+  }
+}
