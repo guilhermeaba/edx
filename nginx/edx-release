@@ -1,0 +1,17 @@
+server {
+    listen 8099 ssl default_server;
+	
+	ssl_certificate /etc/ssl/certs/ssl-certchain-edx.crt;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-edx.key;
+    # request the browser to use SSL for all connections
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+	
+
+    location = /versions.html {
+        alias /edx/app/nginx/versions.html;
+    }
+
+    location = /versions.json {
+        alias /edx/app/nginx/versions.json;
+    }
+}

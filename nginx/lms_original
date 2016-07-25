@@ -1,0 +1,169 @@
+upstream lms-backend {
+            server 127.0.0.1:8000 fail_timeout=0;    
+}
+
+server {
+    listen 80;
+
+    server_name globrazil.com *.globrazil.com 
+    		globrazil.org *.globrazil.org 
+		eduqse.com *.eduqse.com
+		eduqse.org *.eduqse.org 
+		eduqse.globrazil.com *.eduqse.globrazil.com 
+		eduqse.globrazil.org *.eduqse.globrazil.org;
+
+    port_in_redirect off;
+
+    root /usr/share/nginx/wordpress;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args ;
+    }
+
+    location ~ /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php;
+	# With php5-cgi alone:
+        #fastcgi_pass 127.0.0.1:9000;
+        # With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	fastcgi_param PATH_TRANSLATED $document_root$fastcgi_script_name;
+	include fastcgi_params;
+    }
+
+    location ~* \.(svg|ttf|otf|eot|woff|woff2)$ {
+       add_header Access-Control-Allow-Origin *;
+    }
+
+    access_log  /var/log/nginx/$host-access.log;
+    error_log   /var/log/nginx/wpms-error.log;
+}
+
+
+server {
+  error_page 504 /server/server-error.html;
+  error_page 502 /server/server-error.html;
+  error_page 500 /server/server-error.html;
+  
+
+  listen 80 default;
+  listen 8081;
+  
+  access_log /edx/var/log/nginx/access.log p_combined;
+  error_log /edx/var/log/nginx/error.log error;
+
+  client_max_body_size 4M;
+
+  rewrite ^(.*)/favicon.ico$ /static/images/favicon.ico last;
+
+  location @proxy_to_lms_app {
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Port $server_port;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://lms-backend;
+  }
+
+  location / {
+        try_files $uri @proxy_to_lms_app;
+  }
+
+
+  location /segmentio/event {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /api {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location ~ ^/api/profile_images/[^/]*/[^/]*/upload$ {
+    try_files $uri @proxy_to_lms_app;
+    client_max_body_size 1049576;
+  }
+
+  location /notifier_api {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /user_api {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /github_service_hook {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /oauth2 {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /auth {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /heartbeat {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /lti_provider {
+    try_files $uri @proxy_to_lms_app;
+  }
+
+  location /courses {    try_files $uri @proxy_to_lms_app;
+  }
+
+  location ~ ^/media/(?P<file>.*) {
+    root /edx/var/edxapp/media;
+    try_files /$file =404;
+    expires 31536000s;
+  }
+
+  location ~ ^/server/(?P<file>.*) {
+      root /edx/var/nginx/server-static;
+      try_files /$file =404;
+  }
+
+  location ~ ^/static/(?P<file>.*) {
+    root /edx/var/edxapp;
+    try_files /staticfiles/$file /course_static/$file =404;
+
+    location ~ ^/static/(?:.*)(?:\.xml|\.json|README.TXT) {
+        return 403;
+    }
+
+    location ~ "/static/(?P<collected>.*\.[0-9a-f]{12}\.(eot|otf|ttf|woff|woff2)$)" {
+        expires max;
+        add_header Access-Control-Allow-Origin *;
+        try_files /staticfiles/$collected /course_static/$collected =404;
+    }
+
+    location ~ "/static/(?P<collected>.*\.[0-9a-f]{12}\..*)" {
+        expires max;
+        try_files /staticfiles/$collected /course_static/$collected =404;
+    }
+
+    location ~ "/static/(?P<collected>[0-9a-f]{7}/.*)" {
+        expires max;
+        try_files /staticfiles/$collected /course_static/$collected =404;
+    }
+
+    expires epoch;
+  }
+
+
+  if ($http_x_forwarded_proto = "http") {
+    set $do_redirect "true";
+  }
+
+  if ($do_redirect = "true") {
+    rewrite ^ https://$host$request_uri? permanent;
+  }
+}
