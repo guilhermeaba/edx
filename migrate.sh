@@ -2,45 +2,7 @@
 cd /edx/app/edxapp
 echo "We're at /edx/app/edxapp"
 
-# installing datadog
-sudo -u edxapp /edx/bin/pip.edxapp install datadog
-pip install datadog
-
-# REMOVE VENVS MAKE EDX STOP WORKING
-# Rebuild venvs 
-
-#--- TEMP: restauring repository version of edx | Workaround ----------------------
-sudo -u edxapp git -C /edx/app/edxapp/.rbenv  reset --hard
-sudo -u edxapp git -C /edx/app/edxapp/edx-platform  reset --hard
-sudo -u insights git -C /edx/app/insights/edx_analytics_dashboard  reset --hard
-sudo -u analytics_api git -C /edx/app/analytics_api/analytics_api  reset --hard
-sudo -u certs git -C /edx/app/certs/certificates  reset --hard
-sudo -u forum git -C /edx/app/forum/.rbenv  reset --hard
-sudo -u forum git -C /edx/app/forum/cs_comments_service  reset --hard
-sudo -u forum git -C /edx/app/forum/.gem/bundler/gems/mongoid-tree-5aa7a4ee16cd  reset --hard
-sudo -u forum git -C /edx/app/forum/.gem/bundler/gems/delayed_job_mongoid-48b1420d59bc  reset --hard
-sudo -u forum git -C /edx/app/forum/.gem/bundler/gems/voteable_mongo-538e86856daa  reset --hard
-sudo -u forum git -C /edx/app/forum/.gem/bundler/gems/kaminari-82a38e07db1c  reset --hard
-sudo -u forum git -C /edx/app/forum/.gem/bundler/gems/rack-contrib-6ff3ca2b2d98  reset --hard
-sudo -u forum git -C /edx/app/forum/.gem/bundler/gems/mongoid-magic-counter-cache-28bc5e617cab  reset --hard
-sudo -u xqueue git -C /edx/app/xqueue/xqueue  reset --hard
-sudo -u notifier git -C /edx/app/notifier/src  reset --hard
-sudo -u notifier git -C /edx/app/notifier/virtualenvs/notifier/src/opaque-keys reset --hard
-sudo -u edxapp git -C /edx/app/demo/edx-demo-course  reset --hard
-sudo -u edxapp git -C /edx/app/edx_ansible/edx_ansible  reset --hard
-sudo -u edx_notes_api git -C /edx/app/edx_notes_api/edx_notes_api  reset --hard
-#------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------------------------------
 # Stop if any command fails
 set -e
 
@@ -242,12 +204,17 @@ EOF
   cd configuration/playbooks/vagrant
   echo "We're at $TEMPDIR/configuration/playbooks/vagrant"
 
-  cat > inventory.ini << "EOF"
+  cat > inventory.ini <<"EOF"
 [localhost]
 127.0.0.1
 EOF
 
   echo "!!! CHECKPOINT 1 !!!"
+
+  cd /edx/app/edxapp/edx-platform
+  sudo git clean -xdf
+  echo "GIT CLEAN OKAY ON edx-platform"
+  cd $TEMPDIR/configuration/playbooks/vagrant
 
   sudo ansible-playbook \
     --inventory-file=localhost, \
