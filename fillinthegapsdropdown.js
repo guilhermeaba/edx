@@ -13,8 +13,8 @@
     $(".fillinthegapsdropdown .indicator-container").css( "display" , "none");
     $(".fillinthegapsdropdown p.answer").css({"position":"absolute","display":"block","color":"transparent"});
     
-    $(".fillinthegapsdropdown p.answer").each(function () {
-        $(this).change(function () {
+    $(".fillinthegapsdropdown p.answer").each(function() {
+		$(this).bind("DOMSubtreeModified",function(){
             if ((this.innerText).length !== 0) {
                 $(this).parent().find("select option").prop('selected', false);
                 $(this).parent().find("select option:contains('" + this.innerText + "')").prop('selected', true);
