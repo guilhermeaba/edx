@@ -281,7 +281,7 @@ echo "xqueue_version: $TARGET" >> vars.yml
 
 # PIP UPGRADE ------------------------------------------------------------------
 pip install --upgrade pip
-sudo -u edxapp /edx/bin/pip.edxapp install --upgrade pip
+sudo /edx/bin/pip.edxapp install --upgrade pip
 echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
 #------------------------------------------------------------------------------------
 
