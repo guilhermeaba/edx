@@ -212,7 +212,7 @@ EOF
   echo "!!! CHECKPOINT 1 !!!"
 
   cd /edx/app/edxapp/edx-platform
-  sudo git clean -xdf
+  sudo git clean -xdf  
   echo "GIT CLEAN OKAY ON edx-platform"
   cd $TEMPDIR/configuration/playbooks/vagrant
 
@@ -278,6 +278,14 @@ echo "ora2_version: $TARGET" >> vars.yml
 echo "certs_version: $TARGET" >> vars.yml
 echo "forum_version: $TARGET" >> vars.yml
 echo "xqueue_version: $TARGET" >> vars.yml
+
+# PIP UPGRADE ------------------------------------------------------------------
+pip install --upgrade pip
+sudo -u edxapp /edx/bin/pip.edxapp install --upgrade pip
+echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
+#------------------------------------------------------------------------------------
+
+
 sudo ansible-playbook \
     --inventory-file=localhost, \
     --connection=local \
