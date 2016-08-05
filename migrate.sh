@@ -280,7 +280,7 @@ echo "forum_version: $TARGET" >> vars.yml
 echo "xqueue_version: $TARGET" >> vars.yml
 
 # PIP UPGRADE ------------------------------------------------------------------
-pip install --upgrade pip
+sudo pip install --upgrade pip
 sudo /edx/bin/pip.edxapp install --upgrade pip
 sudo /edx/bin/pip.devpi  install --upgrade pip
 sudo /edx/bin/pip.xqueue install --upgrade pip
