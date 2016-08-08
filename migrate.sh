@@ -156,10 +156,17 @@ if [[ -f /edx/app/edx_ansible/server-vars.yml ]]; then
 fi
 
 make_config_venv () {
+  # PIP UPGRADE ------------------------------------------------------------------
+  sudo pip install --upgrade pip
+  sudo /edx/bin/pip.edxapp install --upgrade pip
+  sudo /edx/bin/pip.devpi  install --upgrade pip
+  sudo /edx/bin/pip.xqueue install --upgrade pip
+  #------------------------------------------------------------------------------------
+
   virtualenv venv
   source venv/bin/activate
-  pip install -r configuration/pre-requirements.txt
-  pip install -r configuration/requirements.txt
+  sudo pip install -r configuration/pre-requirements.txt
+  sudo pip install -r configuration/requirements.txt
 }
 
 TEMPDIR=`mktemp -d`
@@ -172,19 +179,6 @@ echo "We're at $TEMPDIR"
 git clone https://github.com/edx/configuration.git \
   --depth=1 --single-branch --branch=${CONFIGURATION_TARGET-$TARGET}
 make_config_venv
-
-
-
-  # PIP UPGRADE ------------------------------------------------------------------
-  sudo pip install --upgrade pip
-  sudo /edx/bin/pip.edxapp install --upgrade pip
-  sudo /edx/bin/pip.devpi  install --upgrade pip
-  sudo /edx/bin/pip.xqueue install --upgrade pip
-  echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
-  #------------------------------------------------------------------------------------
-
-
-
 
 # Dogwood details
 
@@ -244,16 +238,6 @@ EOF
   echo "We're at $TEMPDIR"
 
   echo " !!!CHECKPOINT 2 !!!"
-
-
-    # PIP UPGRADE ------------------------------------------------------------------
-  sudo pip install --upgrade pip
-  sudo /edx/bin/pip.edxapp install --upgrade pip
-  sudo /edx/bin/pip.devpi  install --upgrade pip
-  sudo /edx/bin/pip.xqueue install --upgrade pip
-  echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
-  #------------------------------------------------------------------------------------
-
 
   # Remake our own venv because of the Python 2.7.10 upgrade.
   rm -rf venv
