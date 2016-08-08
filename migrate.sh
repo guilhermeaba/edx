@@ -173,6 +173,19 @@ git clone https://github.com/edx/configuration.git \
   --depth=1 --single-branch --branch=${CONFIGURATION_TARGET-$TARGET}
 make_config_venv
 
+
+
+  # PIP UPGRADE ------------------------------------------------------------------
+  sudo pip install --upgrade pip
+  sudo /edx/bin/pip.edxapp install --upgrade pip
+  sudo /edx/bin/pip.devpi  install --upgrade pip
+  sudo /edx/bin/pip.xqueue install --upgrade pip
+  echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
+  #------------------------------------------------------------------------------------
+
+
+
+
 # Dogwood details
 
 if [[ $TARGET == *dogwood* ]] ; then
@@ -212,6 +225,8 @@ EOF
   echo "!!! CHECKPOINT 1 !!!"
 
   cd /edx/app/edxapp/edx-platform
+
+
   sudo git clean -xdf  
   echo "GIT CLEAN OKAY ON edx-platform"
   cd $TEMPDIR/configuration/playbooks/vagrant
@@ -229,6 +244,15 @@ EOF
   echo "We're at $TEMPDIR"
 
   echo " !!!CHECKPOINT 2 !!!"
+
+
+    # PIP UPGRADE ------------------------------------------------------------------
+  sudo pip install --upgrade pip
+  sudo /edx/bin/pip.edxapp install --upgrade pip
+  sudo /edx/bin/pip.devpi  install --upgrade pip
+  sudo /edx/bin/pip.xqueue install --upgrade pip
+  echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
+  #------------------------------------------------------------------------------------
 
 
   # Remake our own venv because of the Python 2.7.10 upgrade.
