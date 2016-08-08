@@ -22,7 +22,7 @@ EOF
 
 # installing datadog
 sudo -u edxapp /edx/bin/pip.edxapp install datadog
-pip install datadog
+sudo pip install datadog
 
 # REMOVE VENVS MAKE EDX STOP WORKING
 # Rebuild venvs 
@@ -49,6 +49,14 @@ sudo git -C /edx/app/edx_ansible/edx_ansible  reset --hard
 sudo git -C /edx/app/edx_notes_api/edx_notes_api  reset --hard
 #------------------------------------------------------------------
 
+
+
+
+
+pip install --upgrade pip
+sudo /edx/bin/pip.edxapp install --upgrade pip
+sudo /edx/bin/pip.devpi  install --upgrade pip
+sudo /edx/bin/pip.xqueue install --upgrade pip
 
 
 
