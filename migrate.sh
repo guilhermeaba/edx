@@ -156,13 +156,6 @@ if [[ -f /edx/app/edx_ansible/server-vars.yml ]]; then
 fi
 
 make_config_venv () {
-  # PIP UPGRADE ------------------------------------------------------------------
-  sudo pip install --upgrade pip
-  sudo /edx/bin/pip.edxapp install --upgrade pip
-  sudo /edx/bin/pip.devpi  install --upgrade pip
-  sudo /edx/bin/pip.xqueue install --upgrade pip
-  #------------------------------------------------------------------------------------
-
   virtualenv venv
   source venv/bin/activate
   sudo pip install -r configuration/pre-requirements.txt
@@ -286,15 +279,6 @@ echo "ora2_version: $TARGET" >> vars.yml
 echo "certs_version: $TARGET" >> vars.yml
 echo "forum_version: $TARGET" >> vars.yml
 echo "xqueue_version: $TARGET" >> vars.yml
-
-# PIP UPGRADE ------------------------------------------------------------------
-sudo pip install --upgrade pip
-sudo /edx/bin/pip.edxapp install --upgrade pip
-sudo /edx/bin/pip.devpi  install --upgrade pip
-sudo /edx/bin/pip.xqueue install --upgrade pip
-echo "!!! CHECKPOINT 3.1 (PIP UPGRADE DONE)!"
-#------------------------------------------------------------------------------------
-
 
 sudo ansible-playbook \
     --inventory-file=localhost, \
