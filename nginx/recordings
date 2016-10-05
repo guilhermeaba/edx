@@ -1,7 +1,7 @@
 server {
-    listen 18011 ssl;
+    listen 18014 ssl;
     server_name _;
-    root /edx/var/arm;
+    root /edx/var/addons/tools/ar/uploads/;
     index index.php index.html index.htm;
 
     ssl_certificate /etc/ssl/certs/ssl-certchain-edx.crt;

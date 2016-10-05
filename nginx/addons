@@ -1,17 +1,13 @@
 server {
     listen 18011 ssl;
-	
-    ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
-    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
-    # request the browser to use SSL for all connections
-    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
-	
     server_name _;
-    root /edx/var/arm;
+    root /edx/var/addons;
     index index.php index.html index.htm;
 
-    #ssl_certificate /etc/ssl/certs/ca-certificates.crt;
-    #ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+    ssl_certificate /etc/ssl/certs/ssl-certchain-edx.crt;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-edx.key;
+    # request the browser to use SSL for all connections
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
 
     location / {
         try_files $uri $uri/ /index.php?$args ;
