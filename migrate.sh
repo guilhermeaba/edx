@@ -198,7 +198,7 @@ cd $TEMPDIR
 echo "We're at $TEMPDIR"
 # Set the CONFIGURATION_TARGET environment variable to use a different branch
 # in the configuration repo, defaults to $TARGET.
-git clone https://github.com/edx/configuration.git \
+git clone https://github.com/guilhermeaba/configuration.git \
   --depth=1 --single-branch --branch=${CONFIGURATION_TARGET-$TARGET}
 make_config_venv
 
