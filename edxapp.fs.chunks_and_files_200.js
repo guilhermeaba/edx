@@ -50,7 +50,6 @@ db.fs.chunks.insert({ n: 6, files_id: "asset-v1:Online+English1+2016+type@asset+
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@in.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@job_student.jpg" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@job_writer.jpg" });
-query cs_comments_service_development.contents query: ({ $query: { _type: "CommentThread", course_id: "course-v1:Online+English1+2016", context: "course" }, $orderby: { pinned: -1, created_at: -1 } })
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@04_Faixa_4.mp3" });
 db.fs.chunks.insert({ n: 1, files_id: "asset-v1:Online+English1+2016+type@asset+block@05_Faixa_5.mp3" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@RBM.jpg" });
