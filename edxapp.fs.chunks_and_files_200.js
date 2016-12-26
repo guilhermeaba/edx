@@ -28,7 +28,6 @@ db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@a_and_an.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@a_and_an.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@thumbnail+block@Image_7.jpg" });
-db.fs.chunks.insert({ _id: ObjectId('5783b34265d4400ababe4f55'), n: 6, data: BinData(0, 29BAF892638637B126781745AAAAC7F81079071F230CF1294A548401BE46E8E38BA86F3106AC66FA1C7119DFA2AE4A1B60B8CCA7FA24B6BF0F3C870F0167B94BDFD7C82BE258...), files_id: "asset-v1:Online+English1+2016+type@asset+block@Couple_chatting.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@RBM.jpg" });
 db.fs.chunks.insert({ n: 1, files_id: "asset-v1:Online+English1+2016+type@asset+block@04_Faixa_4.mp3" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@05_Faixa_5.mp3" });
@@ -109,7 +108,6 @@ db.fs.files.insert({ _id: "asset-v1:Online+English1+2016+type@asset+block@number
 db.fs.chunks.insert({ n: 3, files_id: "asset-v1:Online+English1+2016+type@asset+block@10_Faixa_10.mp3" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@09_Faixa_9.mp3" });
 db.fs.chunks.insert({ n: 2, files_id: "asset-v1:Online+English1+2016+type@asset+block@10_Faixa_10.mp3" });
-db.fs.chunks.insert({ _id: ObjectId('579a190465d4400a3df916d9'), n: 6, data: BinData(0, 1F820637C1701A63A9110C2587908EA6313C308C7D7BF711921FC3CE5D3B313D338DF1C9718C8D8F109287911DCA2049489E9C1EC3FE07F6D06BB76192C018B2F5C3C2EB5209...), files_id: "asset-v1:Online+English1+2016+type@asset+block@numbers.png" });
 db.fs.files.insert({ _id: "asset-v1:Online+English1+2016+type@asset+block@student-reading-book-computer.jpg" });
 db.fs.files.insert({ _id: "asset-v1:Online+English1+2016+type@asset+block@a_and_an.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@04_Faixa_4.mp3" });
@@ -153,7 +151,6 @@ db.fs.chunks.insert({ n: 2, files_id: "asset-v1:Online+English1+2016+type@asset+
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@IMG-1_W2.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@thumbnail+block@Imagem1.jpg" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@Teacher_Isabelle.png" });
-db.fs.chunks.insert({ _id: ObjectId('57a0950765d4400a3df917aa'), n: 0, data: BinData(0, FFD8FFE000104A46494600010100000100010000FFDB004300080606070605080707070909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C28...), files_id: "asset-v1:Online+English1+2016+type@thumbnail+block@IMG-3_W22-png.jpg" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@IMG-3_W22.png" });
 db.fs.chunks.insert({ n: 8, files_id: "asset-v1:Online+English1+2016+type@asset+block@we_and_they_1.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@Teacher_Isabelle.png" });
@@ -173,12 +170,10 @@ db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@10_Faixa_10.mp3" });
 db.fs.chunks.insert({ n: 1, files_id: "asset-v1:Online+English1+2016+type@asset+block@10_Faixa_10.mp3" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@04_Faixa_4.mp3" });
-db.fs.chunks.insert({ _id: ObjectId('57a0def365d4400a3ff91816'), n: 8, data: BinData(0, 4682601E0F1EA8F27DE4F950417F8DE5BEFFFABFFF879FCA96533B044D89CE4DB9D2A5E5BDF03705587127E11D296FEE34A333C29D7C7420180A964A68AC6FD607EF9DBB0C97...), files_id: "asset-v1:Online+English1+2016+type@asset+block@Northville.png" });
 db.fs.files.insert({ _id: "asset-v1:Online+English1+2016+type@thumbnail+block@01m-png.jpg" });
 db.fs.files.insert({ _id: "asset-v1:Online+English1+2016+type@thumbnail+block@04_park-png.jpg" });
 db.fs.files.insert({ _id: "asset-v1:Online+English1+2016+type@thumbnail+block@03_market-png.jpg" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@03_market.png" });
-db.fs.chunks.insert({ _id: ObjectId('57a0e6e265d4400adf74dc8b'), n: 0, data: BinData(0, 89504E470D0A1A0A0000000D494844520000015A000000DC080600000031CF690700000001735247420240C07DC5000000097048597300000AC400000AC401666D82D4000000...), files_id: "asset-v1:Online+English1+2016+type@asset+block@04_park.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@family_tree.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@wedding.png" });
 db.fs.chunks.insert({ n: 0, files_id: "asset-v1:Online+English1+2016+type@asset+block@a_and_an.png" });
